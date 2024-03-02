@@ -40,8 +40,8 @@
             </a>
 					</li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-buttons.html">
+					<li class="sidebar-item {{ ($title === "Kategori") ? 'active' : '' }}">
+						<a class="sidebar-link" href="/kategori">
               <i class="align-middle" data-feather="tag"></i> <span class="align-middle">Kategori</span>
             </a>
 					</li>

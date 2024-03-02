@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PegawaiController;
@@ -26,3 +27,9 @@ Route::get('/pegawai', [PegawaiController::class, 'index'])->middleware('auth');
 Route::post('/pegawai/store', [PegawaiController::class, 'store'])->middleware('auth');
 Route::put('/pegawai/{id}', [PegawaiController::class, 'update'])->middleware('auth');
 Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->middleware('auth');
+
+Route::get('/kategori', [CategoryController::class, 'index'])->middleware('auth');
+Route::post('/kategori/store', [CategoryController::class, 'store'])->middleware('auth');
+Route::put('/kategori/{id}', [CategoryController::class, 'update'])->middleware('auth');
+Route::delete('/kategori/{id}', [CategoryController::class, 'destroy'])->middleware('auth');
+
