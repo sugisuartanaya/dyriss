@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 
 /*
@@ -32,4 +33,12 @@ Route::get('/kategori', [CategoryController::class, 'index'])->middleware('auth'
 Route::post('/kategori/store', [CategoryController::class, 'store'])->middleware('auth');
 Route::put('/kategori/{id}', [CategoryController::class, 'update'])->middleware('auth');
 Route::delete('/kategori/{id}', [CategoryController::class, 'destroy'])->middleware('auth');
+
+Route::get('/produk', [ProductController::class, 'index'])->middleware('auth');
+Route::post('/produk/store', [ProductController::class, 'store'])->middleware('auth');
+Route::put('/produk/{id}', [ProductController::class, 'update'])->middleware('auth');
+Route::delete('/produk/{id}', [ProductController::class, 'destroy'])->middleware('auth');
+
+
+
 

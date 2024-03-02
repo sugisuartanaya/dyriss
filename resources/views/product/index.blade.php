@@ -5,7 +5,7 @@
 
 <div class="container-fluid p-0">
   
-  <h1 class="h3 mb-3"><strong>Kelola</strong> Kategori</h1>
+  <h1 class="h3 mb-3"><strong>Kelola</strong> Produk</h1>
   
   @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -23,33 +23,47 @@
     <div class="col-md-12 d-flex">
       <div class="card flex-fill">
         <div class="card-header d-flex justify-content-between align-items-center">
-          <h5 class="card-title mb-0">Daftar Kategori</h5>
-          <form action="/kategori/store" method="post">
+          <h5 class="card-title mb-0">Daftar Produk</h5>
+          <form action="/produk/store" method="post">
             @csrf
-            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tambahPegawai">
-              <i class="align-middle" data-feather="plus"></i> Tambah Kategori
+            <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#tambahProduk">
+              <i class="align-middle" data-feather="plus"></i> Tambah Produk
             </button>
-            <div class="modal fade" id="tambahPegawai">
+            <div class="modal fade" id="tambahProduk">
               <div class="modal-dialog">
                 <div class="modal-content">
                   <!-- Modal Header -->
                   <div class="modal-header">
-                    <h5 class="modal-title">Tambah Kategori</h5>
+                    <h5 class="modal-title">Tambah Produk</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
       
                   <!-- Modal Body -->
                   <div class="modal-body">
-                    <label class="form-label">Tipe Bisnis</label>
-                    <select name="business_id" class="form-select mb-3">
-                      <option selected>Pilih Tipe Bisnis</option>
-                      <option value="1">Dyris</option>
-                      <option value="2">Dyah Kitchen</option>
+                    <label class="form-label">Kategori</label>
+                    <select name="category_id" class="form-select mb-3">
+                      <option selected>Pilih Kategori</option>
+                      @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">
+                          {{ $category->category_name }}
+                        </option>
+                      @endforeach
                     </select>
-                    <label class="form-label">Nama Kategori</label>
-                    <input type="name" name="category_name" class="form-control form-control-lg" placeholder="Masukkan nama kategori" required>
+                    <div class="mb-3">
+                      <label class="form-label">Nama Produk</label>
+                      <input type="name" name="product_name" class="form-control form-control-lg" placeholder="Masukkan nama produk" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="basic-url" class="form-label">Harga</label>
+                      <div class="input-group">
+                        <span class="input-group-text" id="basic-addon1">Rp</span>
+                        <input id="harga" type="text" name="price" class="form-control form-control-lg" placeholder="Masukkan harga produk" required>
+                      </div>
+                    </div>
+                    <label class="form-label">Stok</label>
+                    <input type="number" name="qty" class="form-control form-control-lg" placeholder="Masukkan jumlah stok produk" required>
                   </div>
-      
+
                   <!-- Modal Footer -->
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Tutup</button>
@@ -65,54 +79,59 @@
             <thead>
               <tr>
                 <th style="text-align: left;">No.</th>
-                <th style="text-align: left;">Tipe Bisnis</th>
-                <th style="text-align: left;">Nama Kategori</th>
+                <th style="text-align: left;">Kategori</th>
+                <th style="text-align: left;">Nama Produk</th> 
+                <th style="text-align: left;">Harga</th> 
+                <th style="text-align: left;">Stok</th>
                 <th style="text-align: left;">Aksi</th>
               </tr>
             </thead>
             <tbody>
-              @foreach ($categories as $index => $category)
+              @foreach ($products as $index => $product)
                 <tr>
                   <td style="text-align: left;">{{ $index + 1 }}</td>
-                  <td style="text-align: left;">
-                    @if ($category->business->type == 'dk')
-                      Dyah Kitchen
-                    @else
-                      Dyris
-                    @endif
-                  </td>
-                  <td style="text-align: left;">{{ $category->category_name }}</td>
+                  <td style="text-align: left;">{{ $product->category->category_name }}</td>
+                  <td style="text-align: left;">{{ $product->product_name }}</td>
+                  <td style="text-align: left;">Rp. {{ number_format($product->price, 0, ',', '.') }}</td>
+                  <td style="text-align: left;">{{ $product->qty }}</td>
                   <td class="d-flex">
-                    <form action="/kategori/{{ $category->id }}" method="post" >
+                    <form action="/produk/{{ $product->id }}" method="post" >
                       @csrf
                       @method('PUT')
-                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editkategori{{ $category->id }}">
+                      <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editProduk{{ $product->id }}">
                         <i class="align-middle" data-feather="edit-2"></i> Ubah</button>
-                        <div class="modal fade" id="editkategori{{ $category->id }}">
+                        <div class="modal fade" id="editProduk{{ $product->id }}">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <!-- Modal Header -->
                               <div class="modal-header">
-                                <h5 class="modal-title">Edit kategori</h5>
+                                <h5 class="modal-title">Edit Produk</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                   
                               <!-- Modal Body -->
                               <div class="modal-body">
-                                <label class="form-label">Tipe Bisnis</label>
-                                <select name="business_id" class="form-select mb-3">
-                                  @foreach ($businesses as $business)
-                                    <option value="{{ $business->id }}" {{ $business->id == $category->business_id ? 'selected' : '' }}>
-                                      @if ($business->type == 'dk')
-                                        Dyah Kitchen
-                                      @elseif ($business->type == 'dyris')
-                                        Dyris
-                                      @endif
+                                <label class="form-label">Kategori</label>
+                                <select name="category_id" class="form-select mb-3">
+                                  @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}" {{ $category->id == $product->category_id ? 'selected' : '' }}>
+                                      {{ $category->category_name }}
                                     </option>
                                   @endforeach
                                 </select>
-                                <label class="form-label">Nama Kategori</label>
-                                <input type="name" name="category_name" class="form-control form-control-lg" value="{{ $category->category_name }}" required>
+                                <div class="mb-3">
+                                  <label class="form-label">Nama Produk</label>
+                                  <input type="name" name="product_name" class="form-control form-control-lg" value="{{ $product->product_name }}" required>
+                                </div>
+                                <div class="mb-3">
+                                  <label for="basic-url" class="form-label">Harga</label>
+                                  <div class="input-group">
+                                    <span class="input-group-text" id="basic-addon1">Rp</span>
+                                    <input id="harga" type="text" name="price" class="form-control form-control-lg" value="{{ number_format($product->price, 0, ',', '.') }}" required>
+                                  </div>
+                                </div>
+                                <label class="form-label">Stok</label>
+                                <input type="number" name="qty" class="form-control form-control-lg" value="{{ $product->qty }}" required>
                               </div>
                   
                               <!-- Modal Footer -->
@@ -126,23 +145,23 @@
                     </form>
 
                     &nbsp; 
-                    <form action="/kategori/{{ $category->id }}" method="post">
+                    <form action="/produk/{{ $product->id }}" method="post">
                       @csrf
                       @method('DELETE')
-                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deletekategori{{ $category->id }}">
+                      <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteproduk{{ $product->id }}">
                         <i class="align-middle" data-feather="trash-2"></i> Hapus</button>
-                        <div class="modal fade" id="deletekategori{{ $category->id }}">
+                        <div class="modal fade" id="deleteproduk{{ $product->id }}">
                           <div class="modal-dialog">
                             <div class="modal-content">
                               <!-- Modal Header -->
                               <div class="modal-header">
-                                <h5 class="modal-title">Delete kategori</h5>
+                                <h5 class="modal-title">Delete produk</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                               </div>
                   
                               <!-- Modal Body -->
                               <div class="modal-body">
-                                Apakah anda yakin ingin menghapus {{ $category->category_name }}?
+                                Apakah anda yakin ingin menghapus {{ $product->product_name }}?
                               </div>
                   
                               <!-- Modal Footer -->

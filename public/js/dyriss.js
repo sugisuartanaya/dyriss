@@ -1,1 +1,1 @@
-new DataTable('#pegawai');
+new DataTable('#dataTable');

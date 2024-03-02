@@ -61,7 +61,7 @@
           </form>  
         </div>
         <div class="card-body">
-          <table id="pegawai" class="table table-striped table-bordered">
+          <table id="dataTable" class="table table-striped table-bordered">
             <thead>
               <tr>
                 <th style="text-align: left;">No.</th>

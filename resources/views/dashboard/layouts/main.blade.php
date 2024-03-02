@@ -46,8 +46,8 @@
             </a>
 					</li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-forms.html">
+					<li class="sidebar-item {{ ($title === "Produk") ? 'active' : '' }}">
+						<a class="sidebar-link" href="/produk">
               <i class="align-middle" data-feather="package"></i> <span class="align-middle">Produk</span>
             </a>
 					</li>
@@ -369,6 +369,26 @@
 				nextArrow: "<span title=\"Next month\">&raquo;</span>",
 				defaultDate: defaultDate
 			});
+		});
+	</script>
+
+	<script>
+		$(document).ready(function() {
+			$("#harga").on("input", function() {
+					formatAngka();
+			});
+
+			function formatAngka() {
+					var inputElem = $("#harga");
+					
+					// hapus karakter selain angka
+					var nilaiInput = inputElem.val().replace(/\D/g, '');
+
+					// split angka dengan titik
+					var nilaiFormatted = !isNaN(nilaiInput) && nilaiInput !== '' ? parseFloat(nilaiInput).toLocaleString('id-ID') : '';
+
+					inputElem.val(nilaiFormatted);
+			}
 		});
 	</script>
 
