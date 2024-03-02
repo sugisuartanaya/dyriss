@@ -9,9 +9,11 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
-	<title>Dyris & Dyah Kitchen</title>
+	<title>Dyris X Dyah Kitchen</title>
 
 	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
+	{{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" /> --}}
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -22,43 +24,51 @@
 		<nav id="sidebar" class="sidebar js-sidebar">
 			<div class="sidebar-content js-simplebar">
 				<a class="sidebar-brand" href="index.html">
-          <span class="align-middle">Dyris & Dyah Kitchen</span>
+          <span class="align-middle">Dyris X Dyah Kitchen</span>
         </a>
 
 				<ul class="sidebar-nav">
-					<li class="sidebar-item active">
-						<a class="sidebar-link" href="index.html">
-              <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
+					<li class="sidebar-item {{ ($title === "Dashboard") ? 'active' : '' }}">
+						<a class="sidebar-link" href="/dashboard">
+              <i class="align-middle" data-feather="home"></i> <span class="align-middle">Dashboard</span>
             </a>
 					</li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="pages-profile.html">
-              <i class="align-middle" data-feather="user"></i> <span class="align-middle">Pegawai</span>
+					<li class="sidebar-item {{ ($title === "Pembeli") ? 'active' : '' }}">
+						<a class="sidebar-link" href="/pegawai">
+              <i class="align-middle" data-feather="users"></i> <span class="align-middle">Pegawai</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="ui-buttons.html">
-              <i class="align-middle" data-feather="square"></i> <span class="align-middle">Kategori</span>
+              <i class="align-middle" data-feather="tag"></i> <span class="align-middle">Kategori</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="ui-forms.html">
-              <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Produk</span>
+              <i class="align-middle" data-feather="package"></i> <span class="align-middle">Produk</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="ui-forms.html">
-              <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Transaksi</span>
+              <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Transaksi</span>
             </a>
 					</li>
 
 					<li class="sidebar-item">
 						<a class="sidebar-link" href="ui-forms.html">
-              <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Laporan Penjualan</span>
+              <i class="align-middle" data-feather="file"></i> <span class="align-middle">Laporan Penjualan</span>
+            </a>
+					</li>
+
+					<hr>
+
+					<li class="sidebar-item">
+						<a class="sidebar-link" href="/logout">
+              <i class="align-middle" data-feather="log-out"></i> <span class="align-middle">Log Out</span>
             </a>
 					</li>
 
@@ -103,7 +113,7 @@
 						</li>
 						<li class="nav-item ">
 							<div class="nav-link text-dark" >
-                Charles Hall
+                {{ auth()->user()->name }}
               </div>
 						</li>
 					</ul>
@@ -133,6 +143,11 @@
 		</div>
 	</div>
 
+	<script src="{{ asset('js/jquery-3.7.1.min.js') }}"></script>
+	<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+	<script src="{{ asset('js/datatables.min.js') }}"></script>
+	{{-- <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script> --}}
+	<script src="{{ asset('js/dyriss.js') }}"></script>
 	<script src="{{ asset('js/app.js') }}"></script>
 
 	<script>

@@ -22,13 +22,7 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        $user = User::where('role', '1')
-            ->where(function ($query) use ($credentials) {
-                $query->where('username', $credentials['username']);
-            })
-            ->first();
-
-        if ($user && Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)){
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
@@ -37,6 +31,13 @@ class LoginController extends Controller
         //dd('berhasil login!');
     }
 
-    
+    public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
     
 }
