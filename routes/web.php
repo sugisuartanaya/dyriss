@@ -24,15 +24,17 @@ Route::get('/logout', [LoginController::class, 'logout']);
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
-Route::get('/pegawai', [PegawaiController::class, 'index'])->middleware('auth');
-Route::post('/pegawai/store', [PegawaiController::class, 'store'])->middleware('auth');
-Route::put('/pegawai/{id}', [PegawaiController::class, 'update'])->middleware('auth');
-Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->middleware('auth');
+Route::group(['middleware' => 'checkUserRole'], function () {
+  Route::get('/pegawai', [PegawaiController::class, 'index'])->middleware('auth');
+  Route::post('/pegawai/store', [PegawaiController::class, 'store'])->middleware('auth');
+  Route::put('/pegawai/{id}', [PegawaiController::class, 'update'])->middleware('auth');
+  Route::delete('/pegawai/{id}', [PegawaiController::class, 'destroy'])->middleware('auth');
 
-Route::get('/kategori', [CategoryController::class, 'index'])->middleware('auth');
-Route::post('/kategori/store', [CategoryController::class, 'store'])->middleware('auth');
-Route::put('/kategori/{id}', [CategoryController::class, 'update'])->middleware('auth');
-Route::delete('/kategori/{id}', [CategoryController::class, 'destroy'])->middleware('auth');
+  Route::get('/kategori', [CategoryController::class, 'index'])->middleware('auth');
+  Route::post('/kategori/store', [CategoryController::class, 'store'])->middleware('auth');
+  Route::put('/kategori/{id}', [CategoryController::class, 'update'])->middleware('auth');
+  Route::delete('/kategori/{id}', [CategoryController::class, 'destroy'])->middleware('auth');
+});
 
 Route::get('/produk', [ProductController::class, 'index'])->middleware('auth');
 Route::post('/produk/store', [ProductController::class, 'store'])->middleware('auth');

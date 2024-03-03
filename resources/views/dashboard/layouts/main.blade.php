@@ -28,49 +28,78 @@
         </a>
 
 				<ul class="sidebar-nav">
-					<li class="sidebar-item {{ ($title === "Dashboard") ? 'active' : '' }}">
-						<a class="sidebar-link" href="/dashboard">
-              <i class="align-middle" data-feather="home"></i> <span class="align-middle">Dashboard</span>
-            </a>
-					</li>
+					@if(auth()->user()->role === 1)
+						<li class="sidebar-item {{ ($title === "Dashboard") ? 'active' : '' }}">
+							<a class="sidebar-link" href="/dashboard">
+								<i class="align-middle" data-feather="home"></i> <span class="align-middle">Dashboard</span>
+							</a>
+						</li>
 
-					<li class="sidebar-item {{ ($title === "Pembeli") ? 'active' : '' }}">
-						<a class="sidebar-link" href="/pegawai">
-              <i class="align-middle" data-feather="users"></i> <span class="align-middle">Pegawai</span>
-            </a>
-					</li>
+						<li class="sidebar-item {{ ($title === "Pembeli") ? 'active' : '' }}">
+							<a class="sidebar-link" href="/pegawai">
+								<i class="align-middle" data-feather="users"></i> <span class="align-middle">Pegawai</span>
+							</a>
+						</li>
 
-					<li class="sidebar-item {{ ($title === "Kategori") ? 'active' : '' }}">
-						<a class="sidebar-link" href="/kategori">
-              <i class="align-middle" data-feather="tag"></i> <span class="align-middle">Kategori</span>
-            </a>
-					</li>
+						<li class="sidebar-item {{ ($title === "Kategori") ? 'active' : '' }}">
+							<a class="sidebar-link" href="/kategori">
+								<i class="align-middle" data-feather="tag"></i> <span class="align-middle">Kategori</span>
+							</a>
+						</li>
 
-					<li class="sidebar-item {{ ($title === "Produk") ? 'active' : '' }}">
-						<a class="sidebar-link" href="/produk">
-              <i class="align-middle" data-feather="package"></i> <span class="align-middle">Produk</span>
-            </a>
-					</li>
+						<li class="sidebar-item {{ ($title === "Produk") ? 'active' : '' }}">
+							<a class="sidebar-link" href="/produk">
+								<i class="align-middle" data-feather="package"></i> <span class="align-middle">Produk</span>
+							</a>
+						</li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-forms.html">
-              <i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Transaksi</span>
-            </a>
-					</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="ui-forms.html">
+								<i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Transaksi</span>
+							</a>
+						</li>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="ui-forms.html">
-              <i class="align-middle" data-feather="file"></i> <span class="align-middle">Laporan Penjualan</span>
-            </a>
-					</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="ui-forms.html">
+								<i class="align-middle" data-feather="file"></i> <span class="align-middle">Laporan Penjualan</span>
+							</a>
+						</li>
 
-					<hr>
+						<hr>
 
-					<li class="sidebar-item">
-						<a class="sidebar-link" href="/logout">
-              <i class="align-middle" data-feather="log-out"></i> <span class="align-middle">Log Out</span>
-            </a>
-					</li>
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="/logout">
+								<i class="align-middle" data-feather="log-out"></i> <span class="align-middle">Log Out</span>
+							</a>
+						</li>
+
+					@elseif(auth()->user()->role === 0)
+						<li class="sidebar-item {{ ($title === "Dashboard") ? 'active' : '' }}">
+							<a class="sidebar-link" href="/dashboard">
+								<i class="align-middle" data-feather="home"></i> <span class="align-middle">Dashboard</span>
+							</a>
+						</li>
+
+						<li class="sidebar-item {{ ($title === "Produk") ? 'active' : '' }}">
+							<a class="sidebar-link" href="/produk">
+								<i class="align-middle" data-feather="package"></i> <span class="align-middle">Produk</span>
+							</a>
+						</li>
+
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="ui-forms.html">
+								<i class="align-middle" data-feather="shopping-cart"></i> <span class="align-middle">Transaksi</span>
+							</a>
+						</li>
+
+						<hr>
+
+						<li class="sidebar-item">
+							<a class="sidebar-link" href="/logout">
+								<i class="align-middle" data-feather="log-out"></i> <span class="align-middle">Log Out</span>
+							</a>
+						</li>
+					@endif
 
 				</ul>
 			</div>
